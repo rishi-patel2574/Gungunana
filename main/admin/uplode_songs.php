@@ -79,7 +79,7 @@
         {
             header("location: song.php");
         }
-            else
+        else
         {
             echo "Song Not Updated";
         }

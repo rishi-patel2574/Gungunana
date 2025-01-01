@@ -18,7 +18,7 @@
             <a class="nav-link" href="index.php">Library</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#playlists">Playlists</a>
+            <a class="nav-link" href="#">Playlists</a>
           </li>
         </ul>
 
