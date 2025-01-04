@@ -44,8 +44,8 @@ session_start();
     </div>
 
     <div class="text-center mt-4 profile-actions">
-        <a href="edit_profile.php" class="btn btn-primary mx-2">Edit Profile</a>
-        <a href="logout.php" class="btn btn-danger mx-2">Logout</a>
+        <a href="tamplates/update_user.php?changeid=<?php echo $sub[0]; ?>" class="btn btn-primary mx-2">Edit Profile</a>
+        <a href="tamplates/logout.php" class="btn btn-danger mx-2">Logout</a>
     </div>
 </div>
 

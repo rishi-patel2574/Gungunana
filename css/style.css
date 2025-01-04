@@ -270,7 +270,10 @@ body {
 {
   margin-top: 250px;
 }
-
+.pad
+{
+  padding-bottom: 40px;
+}
 .card
 {
   background-color: #120202;

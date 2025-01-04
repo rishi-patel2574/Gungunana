@@ -1,10 +1,11 @@
 <?php
-  session_start();
 
-  if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin']!=true)
-  {
-    header("location: login.php");
-  }
+    session_start();
+    include 'partials/dbconnect.php';
+
+    $sql = "SELECT * FROM s_details ORDER BY s_id";
+    $result= mysqli_query($conn, $sql);
+    $num = mysqli_num_rows($result);
 
 ?>
 <!DOCTYPE html>
@@ -15,46 +16,33 @@
         
         <?php include('tamplates/header.php')?>
         
-        
         <!-- Carousel wrapper -->
         <div class="home-galary text-center carousel-inner py-4">
             <!-- Single item -->
             <div class="carousel-item active">
                 <div class="container">
                     <div class="row">
-                        <div class="col-lg-4">
-                            <div class="card">
-                                <img src="tamplates/p11.jpg" class="card-img">
-                                <div class="card-body">
-                                    <h5 class="">Song Name</h5>
-                                    <a href="#!"  class="btn btn-light">Play Now</a>
-                                </div>
-                            </div>
-                        </div>
 
-                        <div class="col-lg-4 d-none d-lg-block">
+                        <?php 
+                            while($r = mysqli_fetch_row($result))
+                            {
+                        ?>
+                        <div class="col-lg-4 d-none d-lg-block pad">
                             <div class="card">
-                                <img src="tamplates/p15.jpg" class="card-img">
+                                <img src="admin/<?php echo $r[5]; ?>" class="card-img">
                                 <div class="card-body">
-                                    <h5 class="">Song Name</h5>
-                                    <a href="#!" class="btn btn-light">Play Now</a>
+                                    <h5 class=""> <?php echo $r[1]; ?> </h5>
+                                    <a href="index.php?s_id=<?php echo $r[0]; ?>" class="btn btn-light">Play Now</a>
                                 </div>
                             </div>
                         </div>
-
-                        <div class="col-lg-4 d-none d-lg-block">
-                            <div class="card">
-                                <img src="tamplates/p14.jpg" class="card-img">
-                                <div class="card-body">
-                                    <h5 class="">Song name</h5>
-                                    <a href="#!" class="btn btn-light">Plau Now</a>
-                                </div>
-                            </div>
-                        </div>
+                        
+                        <?php
+                            }
+                        ?>
                     </div>
                 </div>
             </div>
         </div>
-  </body>
+    </body>
 </html>
-

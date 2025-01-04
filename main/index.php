@@ -1,10 +1,21 @@
 <?php
   session_start();
+  
+  include 'partials/dbconnect.php';
 
   if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin']!=true)
   {
     header("location: login.php");
-    exit; 
+    exit;
+  }
+
+
+  if(isset($_GET['s_id']))
+  {
+    $id=$_GET['s_id'];
+    $sql = "SELECT * FROM s_details WHERE s_id=".$id;
+    $result= mysqli_query($conn, $sql);
+    $sub = mysqli_fetch_row($result);
   }
 
 ?>
@@ -28,9 +39,9 @@
       </ul>
     </div>
     <div class="sidebar slider-r" align="center">
-      <h3>Song name</h3>
+      <h3><?php echo $sub[1]; ?></h3>
       <div class="img-container" align="center">
-        <img class="song-ing" src="tamplates\p11.jpg">
+        <img class="song-ing" src="admin/<?php echo $sub[5]; ?>">
       </div>
     </div>
 
