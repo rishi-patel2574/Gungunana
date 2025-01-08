@@ -9,14 +9,26 @@
     exit;
   }
 
+  /*-------Song check-------*/
 
   if(isset($_GET['s_id']))
   {
     $id=$_GET['s_id'];
-    $sql = "SELECT * FROM s_details WHERE s_id=".$id;
-    $result= mysqli_query($conn, $sql);
-    $sub = mysqli_fetch_row($result);
   }
+  else
+  {
+    $id=15;
+  }
+  
+  $sql = "SELECT * FROM s_details WHERE s_id=".$id;
+  $result = mysqli_query($conn, $sql);
+  $sub = mysqli_fetch_row($result);
+
+
+  /*-------Playlist check-------*/
+  
+  $sql1 = "SELECT DISTINCT playlist_id FROM playlist ORDER BY playlist_id";
+  $result1= mysqli_query($conn, $sql1);
 
 ?>
 
@@ -31,11 +43,22 @@
     <div class="sidebar">
       <h3>Playlists</h3>
       <ul>
+        
         <li><a href="#liked-songs">Liked Songs</a></li>
-        <li><a href="#playlist-1">Chill Vibes</a></li>
-        <li><a href="#playlist-2">Workout Mix</a></li>
-        <li><a href="#playlist-3">Focus Beats</a></li>
-        <li><a href="#playlist-4">Party Hits</a></li>
+        
+        <?php
+          while($r1 = mysqli_fetch_row($result1))
+          {
+            $sql2 = "SELECT * FROM playlist WHERE playlist_id = ".$r1[0];
+            $result2= mysqli_query($conn, $sql2);
+            $r3 = mysqli_fetch_row($result2);
+
+        ?>
+          <li><a href="#playlist-1"> <?php echo $r3[3]; ?> </a> </li>
+        <?php
+          }
+        ?>
+        
       </ul>
     </div>
     <div class="sidebar slider-r" align="center">

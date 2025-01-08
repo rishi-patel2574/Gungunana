@@ -268,7 +268,7 @@ body {
 /* HOME PAGE */
 .home-galary
 {
-  margin-top: 250px;
+  margin-top: 150px;
 }
 .pad
 {
@@ -283,7 +283,7 @@ body {
 
 .card-img
 {
-  max-height: 230px;
+  height: 220px;
 }
 
 /*########################*/

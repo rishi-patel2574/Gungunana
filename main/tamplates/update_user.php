@@ -87,8 +87,7 @@
                 <input type="password" id="confirm-password" name="cpassword" value="<?php echo $sub[9];?>" required>
             </div>
 
-            <button type="submit" class="signup-btn">Sign Up</button>
-            <p class="login-link">Already have an account? <a href="signup.php">Login</a></p>
+            <button type="submit" class="signup-btn">Update Details</button>
         </form>
     </div>
 </body>

@@ -77,7 +77,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-4">
-                        <h5 class="card-title"> <a href="a_tamplates/create_playlist.php" class="btn btn-danger"> CREATE NEW PLAYLIST  </a></h5>
+                <h5 class="card-title"> <a href="a_tamplates/create_playlist.php" class="btn btn-danger"> CREATE NEW PLAYLIST  </a></h5>
             </div>
         </div>
     </div>
