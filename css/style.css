@@ -95,7 +95,7 @@ body {
   padding: 20px;
   background-color: black;
   height: calc(100vh - 170px); /* Full height minus navbar height */
-  overflow: hidden;
+  overflow: auto;
 
 }
 .img-container{
