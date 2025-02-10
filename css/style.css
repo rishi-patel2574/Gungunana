@@ -332,3 +332,21 @@ h1 {
 .profile-actions .btn-danger:hover {
     background-color: #c82333;
 }
+
+
+/*----Index card-----*/
+.pad
+{
+  padding-bottom: 40px;
+}
+.ind-card
+{
+  background-color: #120202;
+  color: #999;
+  box-shadow: 0 10px 20px #006397;
+}
+
+.ind-card-img
+{
+  height: 100px;
+}

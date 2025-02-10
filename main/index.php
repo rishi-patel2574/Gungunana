@@ -71,8 +71,7 @@
 
     <!-- Main Content -->
     <div class="content">
-      <h1>Welcome <b><?php echo $_SESSION['username']; ?></b> to Spotify Clone</h1>
-      <p>Select a playlist from the sidebar to view its songs!</p>
+      <?php include('tamplates/index_content.php')?>
     </div>
 
     <?php include('tamplates/footer.php')?>
