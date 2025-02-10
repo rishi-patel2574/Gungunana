@@ -5,7 +5,7 @@
 <body class="">
 	<nav class="navbar navbar-expand-lg navbar-dark">
     <div class="container-fluid">
-      <a class="navbar-brand" href="home.php">Gungunana</a>
+      <a class="navbar-brand" href="home.php">GunGunana</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
         <span class="navbar-toggler-icon"></span>
       </button>

@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="..\css\style.css">
 </head>
 <body class="signup-body a-body">
+
+
     <div class="signup-container">
         <h1>Login</h1>
         <form action="#" method="POST" enctype="multipart/form-data">
@@ -57,6 +59,7 @@
             $_SESSION['username'] = $username;
             $_SESSION['profile'] = $r[3];
             $_SESSION['id'] = $r[0];
+            $_SESSION['sub'] = $r[11];
             header("location: index.php");
         }
         else

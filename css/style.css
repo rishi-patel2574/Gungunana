@@ -1,4 +1,3 @@
-
 body {
   margin: 0;
   padding: 0;
@@ -98,6 +97,27 @@ body {
   overflow: auto;
 
 }
+
+/* Custom dark scrollbar for .content */
+.content::-webkit-scrollbar {
+  width: 10px; /* Adjust width */
+}
+
+.content::-webkit-scrollbar-track {
+  background: #0a0a0a; /* Very dark background */
+  border-radius: 10px;
+}
+
+.content::-webkit-scrollbar-thumb {
+  background: #252525; /* Dark gray thumb */
+  border-radius: 10px;
+  border: 2px solid #0a0a0a; /* Subtle contrast */
+}
+
+.content::-webkit-scrollbar-thumb:hover {
+  background: #444444; /* Slightly lighter on hover */
+}
+
 .img-container{
   width: 200px;
   height: 200px;
@@ -341,12 +361,100 @@ h1 {
 }
 .ind-card
 {
-  background-color: #120202;
+  background-color: #120202 !important;
+  margin: 20px;
   color: #999;
   box-shadow: 0 10px 20px #006397;
 }
 
 .ind-card-img
 {
-  height: 100px;
+  width: -webkit-fill-available;
+  height: 180px;
+}
+
+
+/*---------- Advortisment section ---------*/
+
+.add {
+  background-color: #120202;
+  border: 2px solid #FF5733;
+  border-radius: 10px;
+  padding: 15px;
+  text-align: center;
+  box-shadow: 0 5px 15px rgba(255, 87, 51, 0.2);
+}
+
+.ad-img {
+  height: 150px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  filter: invert(100%);
+}
+
+
+/*---------purchase Subscribe-------------*/
+.p-body
+{
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(to bottom right, #2c003e, #000e29);
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.container {
+  text-align: center;
+}
+h1 {
+  color: #FF5733;
+  font-size: 2.5em;
+  text-shadow: 0 0 10px rgba(255, 87, 51, 0.7);
+}
+.ind-card-sub {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  margin: 50px;
+  border-radius: 15px;
+  padding: 100px 25px;
+  box-shadow: 0 4px 30px rgba(0, 255, 255, 0.2);
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+.ind-card-sub:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 40px rgba(0, 255, 255, 0.5);
+}
+.text-warning {
+  color: #00FFFF !important;
+  font-size: 1.8em;
+}
+.btn-custom {
+  background-color: #FF5733;
+  border: none;
+  color: white;
+  padding: 12px 25px;
+  font-size: 1.2em;
+  font-weight: bold;
+  border-radius: 8px;
+  transition: background 0.3s, transform 0.2s;
+  box-shadow: 0 0 15px rgba(255, 87, 51, 0.5);
+}
+.btn-custom:hover {
+  background-color: #ffffff;
+  transform: scale(1.1);
+  box-shadow: 0 0 25px rgba(255, 87, 51, 0.8);
+}
+
+.text-muted
+{
+  color: rgb(177, 215, 239) !important;
+  list-style: none;
+  font-size: large;
 }

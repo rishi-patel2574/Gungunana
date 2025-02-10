@@ -40,10 +40,19 @@ session_start();
             <p><strong>Gender:</strong> <?php echo $sub[5]; ?></p>
             <p><strong>Description:</strong> <?php echo $sub[6]; ?></p>
             <p><strong>Hobby:</strong> <?php echo $sub[7]; ?></p>
+            <p><strong>Subscription:</strong> <?php echo $sub[11]; ?></p>
         </div>
     </div>
 
     <div class="text-center mt-4 profile-actions">
+      <?php
+        if($_SESSION['sub'] == "NO")
+        {
+      ?>
+        <a href="tamplates/purchase_sub.php?changeid=<?php echo $sub[0]; ?>" class="btn btn-primary mx-2">Purchase Subscription</a>
+      <?php
+        }
+      ?>
         <a href="tamplates/update_user.php?changeid=<?php echo $sub[0]; ?>" class="btn btn-primary mx-2">Edit Profile</a>
         <a href="tamplates/logout.php" class="btn btn-danger mx-2">Logout</a>
     </div>
