@@ -19,7 +19,7 @@
         <!-- Carousel wrapper -->
         <div class="home-galary text-center carousel-inner py-4">
             <!-- Single item -->
-            <h1>Welcome <?php echo $_SESSION['username'];?></h1>
+            <h1>Welcome <?php echo $user;?></h1>
             <div class="carousel-item active">
                 <div class="container">
                     <div class="row">

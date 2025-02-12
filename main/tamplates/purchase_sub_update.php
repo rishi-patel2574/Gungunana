@@ -29,7 +29,7 @@
             $amount=1599;
         }
         
-        $insert_query = "INSERT INTO subscriptions (user_id, bank_name, account_number, ifsc_code, duration, amount) VALUES ($id, '$bank_name', $account_number, $ifsc_code, $sub, $amount)";
+        $insert_query = "INSERT INTO subscriptions (user_id, bank_name, account_number, ifsc_code, duration, amount) VALUES ($id, '$bank_name', $account_number, '$ifsc_code', $sub, $amount)";
         $up = "UPDATE `u_info` SET `subscription` = 'YES' WHERE `sn`= $id";
         $res = mysqli_query($conn, $up);
         $_SESSION['sub'] = "YES";

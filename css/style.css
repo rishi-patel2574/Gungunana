@@ -30,6 +30,7 @@ body {
   width: 50px;
   height: 50px;
   border-radius: 50%;
+  margin: 10px;
 }
 .btn-outline-light {
   color: #FF5733;
@@ -69,8 +70,9 @@ body {
   right: 0;
 }
 .sidebar h3 {
-  color: #FF5733; /* Orange theme */
+  color: #ffb266; /* Orange theme */
   margin-bottom: 20px;
+  text-transform: capitalize;
 }
 .sidebar ul {
   list-style: none;
@@ -365,6 +367,7 @@ h1 {
   margin: 20px;
   color: #999;
   box-shadow: 0 10px 20px #006397;
+  padding-bottom: 10px;
 }
 
 .ind-card-img
@@ -458,3 +461,21 @@ h1 {
   list-style: none;
   font-size: large;
 }
+
+/*---------- index -------*/
+
+.p-link
+{
+  font-size: 20px !important;
+  text-transform: capitalize;
+}
+
+/*like button*/
+.inner-like-btn
+{
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+

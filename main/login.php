@@ -42,7 +42,12 @@
         $username = $_POST["username"];
         $password = $_POST["password"];
 
-        if($username == 'admin' || $password == 'admin')
+        $sql = "SELECT * FROM a_info WHERE username='$username' AND password='$password'";
+        $result= mysqli_query($conn, $sql);
+        $num = mysqli_num_rows($result);
+        $r = mysqli_fetch_row($result);
+        
+        if($num==1)
         {
             header("location: admin/a_index.php");
         }
@@ -60,6 +65,7 @@
             $_SESSION['profile'] = $r[3];
             $_SESSION['id'] = $r[0];
             $_SESSION['sub'] = $r[11];
+            $_SESSION['p_id'] = 0;
             header("location: index.php");
         }
         else

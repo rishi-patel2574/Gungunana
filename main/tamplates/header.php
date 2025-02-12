@@ -28,6 +28,7 @@
           {
             echo '<a href="login.php" class="btn btn-light ms-3">Login</a>';
             echo '<a href="signup.php" class="btn btn-light ms-3">Sign Up</a>';
+            $user = "USER";
           }
           else
           {
@@ -35,6 +36,7 @@
             '<a href="profile.php" class="ms-3">
               <img src="admin/'.$_SESSION['profile'].'" class="img-profile">
             </a>';
+            $user = $_SESSION['username'];
           }
 
         ?>
