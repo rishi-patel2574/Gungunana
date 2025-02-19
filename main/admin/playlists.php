@@ -1,10 +1,8 @@
 <?php
 
     include '../partials/dbconnect.php';
-
-    $sql = "SELECT * FROM playlist ORDER BY p_sn";
+    
     $sql1 = "SELECT DISTINCT playlist_id FROM playlist ORDER BY playlist_id";
-    $result= mysqli_query($conn, $sql);
     $result1= mysqli_query($conn, $sql1);
     $num1 = mysqli_num_rows($result1);
     
@@ -13,7 +11,7 @@
 <html lang="en">
 <head>
     <title>Playlists</title>
-    
+
 
     <?php include('a_tamplates/a_header.php')?>
 
@@ -64,7 +62,6 @@
                                         ';
                                 }
                             ?>
-                            <!-- Add more rows dynamically -->
                         </tbody>
                     </table>
                 </div>

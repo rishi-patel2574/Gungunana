@@ -6,7 +6,8 @@
 ?>
 
 <?php
-    if($_SESSION['sub'] == "NO") {
+    if($_SESSION['sub'] == "NO") 
+    {
 ?>
 
 <div class="add container mt-4">
@@ -39,7 +40,13 @@
         
         $sql9 = "SELECT * FROM liked_song WHERE sn=".$_SESSION['id'];
         $result9 = mysqli_query($conn, $sql9);
+        $num9 = mysqli_num_rows($result9);
+        if($num9 > 0)
+        {
+
 ?>
+
+<h1 class="hwd-h1"> Liked Songs </h1>
 
 <div class="text-center carousel-inner py-4">
     <!-- Single item -->
@@ -74,13 +81,30 @@
 
 
 <?php
-        
+        }
+        else
+        {
+?>
+
+<div class="text-center carousel-inner py-4">
+    <!-- Single item -->
+    <div class="carousel-item active">
+        <div class="container">
+            <div class="row">
+                <h1>You have not yet liked any songs</h1>
+            </div>
+        </div>
+    </div>
+</div>
+<?php
+        }
     }
     elseif($p_id == 0)
     {
 ?>
 
 
+<h1 class="hwd-h1"> Explore </h1>
 
 <div class="text-center carousel-inner py-4">
     <!-- Single item -->
@@ -117,9 +141,10 @@
     {
         $sql5 = "SELECT * FROM playlist WHERE playlist_id = $p_id ORDER BY playlist_id";
         $result5= mysqli_query($conn, $sql5);
+        $play = mysqli_fetch_row($result5);
 ?>
 
-
+<h1 class="hwd-h1"> <?php echo $play[3]; ?></h1>
 
 <div class="text-center carousel-inner py-4">
     <!-- Single item -->

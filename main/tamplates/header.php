@@ -1,6 +1,7 @@
 	<link rel="stylesheet" href="..\css\bootstrap.min.css">
   <link rel="stylesheet" href="..\css\style.css">
 	<script type="text/javascript" src="..\js\bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body class="">
 	<nav class="navbar navbar-expand-lg navbar-dark">
@@ -18,7 +19,7 @@
             <a class="nav-link" href="index.php">Library</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Playlists</a>
+            <a class="nav-link" href="playlist.php">Playlists</a>
           </li>
         </ul>
 

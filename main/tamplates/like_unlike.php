@@ -11,7 +11,7 @@ include '../partials/dbconnect.php';
 
       $sql8 = "DELETE FROM `liked_song` WHERE s_id = $song_id AND sn = $user_id";
       $result8 = mysqli_query($conn, $sql8);
-      header("location: ../index.php");
+      header("location: ../index.php?like_id=1&s_id=$song_id");
       exit;
   }
 
@@ -22,7 +22,7 @@ include '../partials/dbconnect.php';
 
       $sql8 = "INSERT INTO `liked_song` (`sn`, `s_id`) VALUES ('$user_id', '$song_id')";
       $result8 = mysqli_query($conn, $sql8);
-      header("location: ../index.php");
+      header("location: ../index.php?like_id=1&s_id=$song_id");
       exit;
   }
 

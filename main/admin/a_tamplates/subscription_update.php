@@ -18,6 +18,7 @@
         {
             $upd = "UPDATE u_info set subscription = 'NO' WHERE sn=".$id;
             $u_result= mysqli_query($conn, $upd);
+            $insert_query = "DELETE FROM `subscriptions` WHERE user_id=".$id;
             header("location: ../total_users.php");
         }
     }

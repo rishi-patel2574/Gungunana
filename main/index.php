@@ -28,7 +28,7 @@
   }
   else
   {
-    $id=15;
+    $id=12;
   }
 
   $sql = "SELECT * FROM s_details WHERE s_id=".$id;
@@ -44,7 +44,6 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<html>
   <head>
 	  <title>Welcome <?php echo $_SESSION['username']; ?></title>
 	  <?php include('tamplates/header.php')?>
@@ -69,7 +68,8 @@
         <?php
           }
         ?>
-
+        
+        <li align = "center" class="explore"> <h2><a href="index.php?p_id=0" class="p-link">Explore</a></h2></li>
       </ul>
     </div>
     <div class="sidebar slider-r" align="center">

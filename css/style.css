@@ -64,6 +64,7 @@ body {
   top: 69px; /* Start below the navbar */
   border:5px solid #120202;
   border-radius: 15px;
+  overflow: auto;
 }
 
 .slider-r{
@@ -80,6 +81,7 @@ body {
 }
 .sidebar ul li {
   margin: 10px 0;
+  background-color: #360505; border-radius: 50px;
 }
 .sidebar ul li a {
   text-decoration: none;
@@ -88,6 +90,11 @@ body {
 }
 .sidebar ul li a:hover {
   color: #FF5733; /* Orange hover */
+}
+
+.explore
+{
+  padding: 20px 0px;
 }
 .content {
   margin-left: 405px;
@@ -138,38 +145,106 @@ body {
 }
 
 /* Existing styles */
-
 .footer {
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: #003049; /* Matches navbar and sidebar */
+  background-color: #003049;
   color: white;
-  padding: 0px 20px;
-  z-index: 1030; /* Ensures footer appears on top of content */
+  padding: 10px 20px;
+  z-index: 1030;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Left (Song Name) */
+.song-info {
+  width: 20%;
+  text-align: left;
+  font-size: 14px;
+  font-weight: bold;
+  color: #FF5733;
+}
+
+/* Right (Artist Name) */
+.artist-info {
+  width: 20%;
+  text-align: right;
+  font-size: 14px;
+  color: #FF5733;
+}
+
+/* Center (Controls) */
+.player-controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 50%;
+}
+
+.btn-control {
+  background: transparent;
+  border: none;
+  color: #FF5733;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.btn-control:hover {
+  color: white;
 }
 
 .audio-player {
   width: 500px;
-  color: #FF5733; /* Matches orange theme */
-  
+  color: #FF5733;
 }
 
-.audio-player::-webkit-media-controls-panel {
-  background-color: #003049; /* Dark background for controls */
-  color: #FF5733; /* Matches theme */
-}
-.audio-player::-webkit-media-controls-play-button,
-.audio-player::-webkit-media-controls-volume-slider {
-  background-color: #FF5733; /* Orange buttons */
-}
-.audio-player::-webkit-media-controls-current-time-display,
-.audio-player::-webkit-media-controls-time-remaining-display
-{
-  color: white;
+.btn-song {
+  width: 25px;
+  height: 25px;
+  margin: 5px;
 }
 
+/* Timeline */
+.seek-bar {
+  width: 100%;
+  appearance: none;
+  height: 5px;
+  background: #FF5733; /* Updated to match theme */
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.seek-bar::-webkit-slider-thumb {
+  appearance: none;
+  width: 12px;
+  height: 12px;
+  background: white; /* Stands out on orange background */
+  border-radius: 50%;
+  border: 2px solid #FF5733; /* Matches theme */
+}
+
+.seek-bar::-webkit-slider-thumb:hover {
+  background: #E74C3C; /* Slightly darker orange on hover */
+}
+
+
+/* Responsive: Stack elements on smaller screens */
+@media (max-width: 768px) {
+  .song-info, .artist-info {
+    display: none;
+  }
+
+  .player-controls {
+    width: 100%;
+  }
+}
+
+
+/*----------------------------admin--------------------------*/
 
 
 .a-body {
@@ -479,3 +554,11 @@ h1 {
   cursor: pointer;
 }
 
+.hwd-h1
+{
+  background-color: #003049;
+  border-radius: 10px;
+  text-align: center;
+  margin-top: 10px;
+  text-transform: capitalize;
+}
