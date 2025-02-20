@@ -1,110 +1,160 @@
-<?php
-
-    include 'partials/dbconnect.php';
-
-?>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>UPLOAD SONGS</title>
-    <link rel="stylesheet" href="a_tamplates/a_style.css">
-</head>
-<body class="signup-body a-body">
-    <div class="signup-container">
-        <h1>Add New Song</h1>
-        <form action="#" method="POST" enctype="multipart/form-data">
-            <!-- Title -->
-            <div class="input-group">
-                <label for="title">Title</label>
-                <input type="text" id="title" name="title" required>
-            </div>
-
-            <!-- Artist Name -->
-            <div class="input-group">
-                <label for="artist">Artist Name</label>
-                <input type="text" id="artist" name="artist" required>
-            </div>
-
-            <!-- Album Name -->
-            <div class="input-group">
-                <label for="album">Album Name</label>
-                <input type="text" id="album" name="album" required>
-            </div>
-
-            <!-- Song -->
-            <div class="input-group">
-                <label for="song">Song</label>
-                <input type="file" id="song" name="song" required>
-            </div>
-
-            <!-- Song Photo -->
-            <div class="input-group">
-                <label for="photo">Song Photo</label>
-                <input type="file" id="photo" name="photo" required>
-            </div>
-
-            <button type="submit" class="signup-btn">Sign Up</button>
-            <p class="login-link">Already have an account? <a href="signup.php">Login</a></p>
-        </form>
+<footer class="footer">
+  <div class="container-fluid py-3 d-flex align-items-center justify-content-between">
+    
+    <!-- Left: Song Info -->
+    <div class="song-info d-flex align-items-center">
+      <div class="song-img me-2">
+        <img src="admin/<?php echo $sub[5]; ?>" class="img-profile">
+      </div>
+      <div>
+        <h4 class="mb-0"><strong><?php echo $sub[1]; ?></strong></h4>
+        <small class="text-muted"> <?php echo $sub[2]; ?> </small>
+      </div>
     </div>
-</body>
-</html>
+
+    <!-- Center: Player Controls -->
+    <div class="player-controls d-flex flex-column align-items-center">
+      <div class="d-flex justify-content-center">
+        <button id="prevBtn" class="btn btn-control"><img src="img/previous.png" class="btn-song"></button>
+        <button id="playPauseBtn" class="btn btn-control mx-2"><img src="img/play.png" class="btn-song"></button>
+        <button id="nextBtn" class="btn btn-control"><img src="img/next.png" class="btn-song"></button>
+      </div>
+      <!-- Time Display & Progress Bar -->
+      <div class="d-flex align-items-center w-100">
+      <?php
+        if($_SESSION['sub'] == "YES") 
+        {
+      ?>
+        <span id="currentTime" class="me-2">0:00</span>
+        <input type="range" id="seekBar" value="0" min="0" step="1" class="seek-bar flex-grow-1">
+        <span id="totalTime" class="ms-2">0:00</span>
+      <?php
+        }
+      ?>
+      </div>
+    </div>
+
+    <!-- Right: Volume Control -->
+    <div class="volume-control d-flex align-items-center">
+      <img src="img/volume.png" class="btn-song me-2" alt="Volume">
+      <input type="range" id="volumeBar" value="100" min="0" max="100" step="1" class="volume-bar">
+    </div>
+  </div>
+
+  <audio id="audioPlayer" class="audio-player">
+    <source src="admin/<?php echo $sub[4]; ?>" type="audio/mpeg">
+    Your browser does not support the audio tag.
+  </audio>
+</footer>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const audio = document.getElementById("audioPlayer");
+    const playPauseBtn = document.getElementById("playPauseBtn");
+    const seekBar = document.getElementById("seekBar");
+    const currentTimeDisplay = document.getElementById("currentTime");
+    const totalTimeDisplay = document.getElementById("totalTime");
+    const volumeBar = document.getElementById("volumeBar");
+
+    // Format time helper function
+    function formatTime(seconds) {
+        let min = Math.floor(seconds / 60);
+        let sec = Math.floor(seconds % 60);
+        return `${min}:${sec < 10 ? '0' : ''}${sec}`;
+    }
+
+    // Update total duration when metadata loads
+    audio.onloadedmetadata = function () {
+        seekBar.max = audio.duration;
+        totalTimeDisplay.textContent = formatTime(audio.duration);
+    };
+
+    // Play/Pause functionality
+    playPauseBtn.addEventListener("click", function () {
+        if (audio.paused) {
+            audio.play();
+            playPauseBtn.innerHTML = '<img src="img/pause.png" class="btn-song">';
+        } else {
+            audio.pause();
+            playPauseBtn.innerHTML = '<img src="img/play.png" class="btn-song">';
+        }
+    });
+
+    // Update seek bar & current time display as song plays
+    audio.addEventListener("timeupdate", function () {
+        seekBar.value = audio.currentTime;
+        currentTimeDisplay.textContent = formatTime(audio.currentTime);
+    });
+
+    // Seek when user interacts with the seek bar
+    seekBar.addEventListener("input", function () {
+        audio.currentTime = seekBar.value;
+    });
+
+    // Volume control
+    volumeBar.addEventListener("input", function () {
+        audio.volume = volumeBar.value / 100;
+    });
+});
+</script>
+
+
+
+
+
+
+
+
+
+
+
 
 <?php
-
-    if ($_SERVER["REQUEST_METHOD"] == "POST")
+      $sql9 = "SELECT * FROM s_details ORDER BY s_id";
+      $result9 = mysqli_query($conn, $sql9);
+      $count = false;
+      while ($r9 = mysqli_fetch_row($result9))
+      {
+        if($count == true)
+        {
+          $q1 = $r9[0];
+          $q2 = $r9[1];
+          $q3 = $r9[2];
+          $q4 = $r9[3];
+          $q5 = $r9[4];
+          $q6 = $r9[5];
+          $count = false;
+        }
+        if ($r9[0]==$sub[0])
+        {
+          $count = true;
+        }
+      }
+    ?>
+    function next()
     {
-        $s_filename = $_FILES["song"]["name"];
-        $s_tempname = $_FILES["song"]["tmp_name"];
-        $s_error = $_FILES["song"]["error"];
-
-        $filename = $_FILES["photo"]["name"];
-        $tempname = $_FILES["photo"]["tmp_name"];
-        $p_error = $_FILES["photo"]["error"];
-
-        if ($s_error !== 0) {
-            echo "Error uploading song: " . $s_error;
+      document.getElementById("myImage").src = "admin/<?php echo $q6; ?>";
+      alert("<?php echo $q6; ?>");
+      <?php
+        $sql10 = "SELECT * FROM s_details ORDER BY s_id";
+        $result10 = mysqli_query($conn, $sql10);
+        $count = false;
+        while ($r9 = mysqli_fetch_row($result10))
+        {
+          if($count == true)
+          {
+            $q1 = $r9[0];
+            $q2 = $r9[1];
+            $q3 = $r9[2];
+            $q4 = $r9[3];
+            $q5 = $r9[4];
+            $q6 = $r9[5];
+            $count = false;
+          }
+          if ($q6==$r9[0])
+          {
+            $count = true;
+          }
         }
-
-        if ($p_error !== 0) {
-            echo "Error uploading photo: " . $p_error;
-        }
-
-        $title= $_POST["title"];
-        $artist= $_POST["artist"];
-        $album= $_POST["album"];
-        $s_folder = "images/".$s_filename;
-        $folder = "images/".$filename;
-
-        // Check the file paths
-        echo "Song Path: $s_folder<br>";
-        echo "Photo Path: $folder<br>";
-
-        $sql = "INSERT INTO s_details (title, artist, album, file_path, cover_image) VALUES ('$title', '$artist', '$album', '$s_folder', '$folder')";
-
-        $result = mysqli_query($conn, $sql); 
-
-        if (!$result) {
-            echo "Error in SQL query: " . mysqli_error($conn);
-        }
-
-        if (move_uploaded_file($s_tempname, $s_folder)) {
-            echo "Song uploaded successfully!";
-        } else {
-            echo "Failed to upload song.";
-        }
-
-        if (move_uploaded_file($tempname, $folder)) {
-            echo "Photo uploaded successfully!";
-        } else {
-            echo "Failed to upload photo.";
-        }
-
-        if ($result) {
-            header("Location: song.php");
-        } else {
-            echo "Song Not Updated";
-        }
+      ?>
     }
-?>

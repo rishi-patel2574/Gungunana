@@ -168,20 +168,13 @@ body {
   color: #FF5733;
 }
 
-/* Right (Artist Name) */
-.artist-info {
-  width: 20%;
-  text-align: right;
-  font-size: 14px;
-  color: #FF5733;
-}
 
 /* Center (Controls) */
 .player-controls {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 50%;
+  width: 45%;
 }
 
 .btn-control {

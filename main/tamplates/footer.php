@@ -1,14 +1,15 @@
 <footer class="footer">
   <div class="container-fluid py-3 d-flex align-items-center justify-content-between">
     
-    <!-- Left: Song Name -->
-    <div class="song-info">
-      <h4 class="mb-0">
-        <img src="admin/<?php echo htmlspecialchars($sub[5]); ?>" class="img-profile">
-        <strong id="songTitle">
-          <?php echo htmlspecialchars($sub[1]); ?>
-        </strong>
-      </h4> 
+    <!-- Left: Song Info -->
+    <div class="song-info d-flex align-items-center">
+      <div class="song-img me-2">
+        <img id= "myImage" src="admin/<?php echo $sub[5]; ?>" class="img-profile">
+      </div>
+      <div>
+        <h4 class="mb-0"><strong><?php echo $sub[1]; ?></strong></h4>
+        <small class="text-muted"> <?php echo $sub[2]; ?> </small>
+      </div>
     </div>
 
     <!-- Center: Player Controls -->
@@ -16,95 +17,58 @@
       <div class="d-flex justify-content-center">
         <button id="prevBtn" class="btn btn-control"><img src="img/previous.png" class="btn-song"></button>
         <button id="playPauseBtn" class="btn btn-control mx-2"><img src="img/play.png" class="btn-song"></button>
-        <button id="nextBtn" class="btn btn-control"><img src="img/next.png" class="btn-song"></button>
+        <button id="nextBtn" class="btn btn-control" onclick="next()"><img src="img/next.png" class="btn-song"></button>
       </div>
       <!-- Time Display & Progress Bar -->
       <div class="d-flex align-items-center w-100">
-      <?php if(isset($_SESSION['sub']) && $_SESSION['sub'] == "YES") { ?>
+      <?php
+        if($_SESSION['sub'] == "YES") 
+        {
+      ?>
         <span id="currentTime" class="me-2">0:00</span>
         <input type="range" id="seekBar" value="0" min="0" step="1" class="seek-bar flex-grow-1">
         <span id="totalTime" class="ms-2">0:00</span>
-      <?php } ?>
+      <?php
+        }
+      ?>
       </div>
     </div>
 
-    <!-- Right: Artist Name -->
-    <div class="artist-info">
-      <h4 class="mb-0 text-end"><?php echo htmlspecialchars($sub[2]); ?></h4> 
+    <!-- Right: Volume Control -->
+    <div class="volume-control d-flex align-items-center">
+      <img src="img/volume.png" class="btn-song me-2" alt="Volume">
+      <input type="range" id="volumeBar" value="100" min="0" max="100" step="1" class="volume-bar">
     </div>
-
   </div>
 
-  <audio id="audioPlayer" class="audio-player" autoplay>
-    <source id="audioSource" src="admin/<?php echo htmlspecialchars($sub[4]); ?>" type="audio/mpeg">
+  <audio id="audioPlayer" class="audio-player">
+    <source src="admin/<?php echo $sub[4]; ?>" type="audio/mpeg">
     Your browser does not support the audio tag.
   </audio>
 </footer>
 
-<?php
-$songsArray = [];
-if (isset($_GET['like_id'])) {
-    $like_id = intval($_GET['like_id']);
-    $sql = "SELECT s_details.file_path, s_details.title FROM liked_song 
-            JOIN s_details ON liked_song.s_id = s_details.s_id 
-            WHERE liked_song.sn = $like_id 
-            ORDER BY s_details.s_id ASC";
-} elseif (isset($_GET['p_id']) && intval($_GET['p_id']) != 0) {
-    $p_id = intval($_GET['p_id']);
-    $sql = "SELECT s_details.file_path, s_details.title FROM playlist 
-            JOIN s_details ON playlist.song_id = s_details.s_id 
-            WHERE playlist.playlist_id = $p_id 
-            ORDER BY s_details.s_id ASC";
-} else {
-    $sql = "SELECT file_path, title FROM s_details ORDER BY s_id ASC";
-}
-
-$result = mysqli_query($conn, $sql);
-while ($row = mysqli_fetch_assoc($result)) {
-    $songsArray[] = [
-        'file_path' => "admin/" . htmlspecialchars($row['file_path']),
-        'title' => htmlspecialchars($row['title'])
-    ];
-}
-?>
-
 <script>
-document.addEventListener("DOMContentLoaded", function () {
     const audio = document.getElementById("audioPlayer");
     const playPauseBtn = document.getElementById("playPauseBtn");
     const seekBar = document.getElementById("seekBar");
     const currentTimeDisplay = document.getElementById("currentTime");
     const totalTimeDisplay = document.getElementById("totalTime");
-    const songTitle = document.getElementById("songTitle");
+    const volumeBar = document.getElementById("volumeBar");
 
-    let currentIndex = 0;
-    let songs = <?php echo json_encode($songsArray); ?>;
-
-    if (songs.length > 0) {
-        loadSong(currentIndex);
+    // Format time helper function
+    function formatTime(seconds) {
+        let min = Math.floor(seconds / 60);
+        let sec = Math.floor(seconds % 60);
+        return `${min}:${sec < 10 ? '0' : ''}${sec}`;
     }
 
-    function loadSong(index) {
-        audio.src = songs[index].file_path;
-        songTitle.innerText = songs[index].title;
-        audio.play();
-    }
+    // Update total duration when metadata loads
+    audio.onloadedmetadata = function () {
+        seekBar.max = audio.duration;
+        totalTimeDisplay.textContent = formatTime(audio.duration);
+    };
 
-    function playNext() {
-        currentIndex = (currentIndex + 1) % songs.length;
-        loadSong(currentIndex);
-    }
-
-    function playPrev() {
-        currentIndex = (currentIndex - 1 + songs.length) % songs.length;
-        loadSong(currentIndex);
-    }
-
-    audio.onended = playNext;
-
-    document.getElementById("nextBtn").addEventListener("click", playNext);
-    document.getElementById("prevBtn").addEventListener("click", playPrev);
-
+    // Play/Pause functionality
     playPauseBtn.addEventListener("click", function () {
         if (audio.paused) {
             audio.play();
@@ -115,27 +79,75 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    function formatTime(seconds) {
-        let min = Math.floor(seconds / 60);
-        let sec = Math.floor(seconds % 60);
-        return `${min}:${sec < 10 ? '0' : ''}${sec}`;
-    }
-
-    audio.onloadedmetadata = function () {
-        if (seekBar) seekBar.max = audio.duration;
-        if (totalTimeDisplay) totalTimeDisplay.textContent = formatTime(audio.duration);
-    };
-
+    // Update seek bar & current time display as song plays
     audio.addEventListener("timeupdate", function () {
-        if (seekBar) seekBar.value = audio.currentTime;
-        if (currentTimeDisplay) currentTimeDisplay.textContent = formatTime(audio.currentTime);
+        seekBar.value = audio.currentTime;
+        currentTimeDisplay.textContent = formatTime(audio.currentTime);
     });
 
-    if (seekBar) {
-        seekBar.addEventListener("input", function () {
-            audio.currentTime = seekBar.value;
-        });
+    // Seek when user interacts with the seek bar
+    seekBar.addEventListener("input", function () {
+        audio.currentTime = seekBar.value;
+    });
+
+    // Volume control
+    volumeBar.addEventListener("input", function () {
+        audio.volume = volumeBar.value / 100;
+    });
+    
+    
+    <?php
+      $sql10 = "SELECT * FROM s_details ORDER BY s_id";
+      $result10 = mysqli_query($conn, $sql10);
+    ?>
+
+    var songList = [];
+    var v1, v2, v3, v4, v5, v6;
+    var count = false;
+
+    <?php while ($r9 = mysqli_fetch_row($result10)) { ?>
+        if(count == true)
+        {
+          count = false;
+          v1 = <?php echo $r9[0]; ?>;
+          v2 = "<?php echo $r9[1]; ?>";
+          v3 = "<?php echo $r9[2]; ?>";
+          v4 = "<?php echo $r9[3]; ?>";
+          v5 = "<?php echo $r9[4]; ?>";
+          v6 = "<?php echo $r9[5]; ?>";
+        }
+        songList.push(["<?php echo $r9[0]; ?>", "<?php echo $r9[1]; ?>", "<?php echo $r9[2]; ?>", "<?php echo $r9[3]; ?>", "<?php echo $r9[4]; ?>", "<?php echo $r9[5]; ?>"]);
+        if(<?php echo $r9[0]; ?> == <?php echo $sub[0];?>)
+        {
+          count = true;
+        }
+    <?php } ?>
+
+    console.log(songList);
+    console.log(songList[0]);
+    console.log(songList[0][1]);
+    
+    function next()
+    {
+      document.getElementById("myImage").src = "admin/" + v6;
+      alert(v6);
+      count = false;
+      for (let i = 0; i < songList.length; i++) 
+      {
+        if(count == true)
+        {
+          v1 = songList[i][0]; 
+          v2 = songList[i][1]; 
+          v3 = songList[i][2]; 
+          v4 = songList[i][3]; 
+          v5 = songList[i][4]; 
+          v6 = songList[i][5]; 
+        }   
+        if(v1 == songList[i][0])
+        {
+          count = true;
+        }
+      }
     }
-});
 
 </script>
