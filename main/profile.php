@@ -12,7 +12,6 @@ session_start();
 <html lang="en">
 <head>
     <title>Profile - <?php echo $_SESSION['username']; ?></title>
-    <link rel="stylesheet" href="styles.css"> <!-- Include your CSS file -->
     <?php include('tamplates/header.php');
       
       include ('partials/dbconnect.php');

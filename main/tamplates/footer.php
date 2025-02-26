@@ -3,19 +3,19 @@
     
     <!-- Left: Song Info -->
     <div class="song-info d-flex align-items-center">
-      <div class="song-img me-2">
+      <div class="song-img me-1">
         <img id= "myImage" src="admin/<?php echo $sub[5]; ?>" class="img-profile">
       </div>
       <div>
-        <h4 class="mb-0"><strong><?php echo $sub[1]; ?></strong></h4>
-        <small class="text-muted"> <?php echo $sub[2]; ?> </small>
+        <h4 id="songTitle" class="mb-0"><strong><?php echo $sub[1]; ?></strong></h4>
+        <small id="artistName" class="text-muted"><?php echo $sub[2]; ?></small>
       </div>
     </div>
 
     <!-- Center: Player Controls -->
     <div class="player-controls d-flex flex-column align-items-center">
       <div class="d-flex justify-content-center">
-        <button id="prevBtn" class="btn btn-control"><img src="img/previous.png" class="btn-song"></button>
+        <button id="prevBtn" class="btn btn-control" onclick="previous()"><img src="img/previous.png" class="btn-song"></button>
         <button id="playPauseBtn" class="btn btn-control mx-2"><img src="img/play.png" class="btn-song"></button>
         <button id="nextBtn" class="btn btn-control" onclick="next()"><img src="img/next.png" class="btn-song"></button>
       </div>
@@ -95,7 +95,7 @@
         audio.volume = volumeBar.value / 100;
     });
     
-    
+    //-----------------next()--------------------------
     <?php
       $sql10 = "SELECT * FROM s_details ORDER BY s_id";
       $result10 = mysqli_query($conn, $sql10);
@@ -130,24 +130,58 @@
     function next()
     {
       document.getElementById("myImage").src = "admin/" + v6;
-      alert(v6);
-      count = false;
+      document.getElementById("audioPlayer").src = "admin/" + v5;
+      document.getElementById("audioPlayer").load();
+      document.getElementById("audioPlayer").play();
+      document.getElementById("songTitle").innerHTML = `<strong>${v2}</strong>`;
+      document.getElementById("artistName").innerHTML = v3;
+      var co = false;
       for (let i = 0; i < songList.length; i++) 
       {
-        if(count == true)
+        if(co == true)
         {
           v1 = songList[i][0]; 
           v2 = songList[i][1]; 
           v3 = songList[i][2]; 
           v4 = songList[i][3]; 
           v5 = songList[i][4]; 
-          v6 = songList[i][5]; 
+          v6 = songList[i][5];
+          co = false;
         }   
-        if(v1 == songList[i][0])
+        else if(v1 == songList[i][0])
         {
-          count = true;
+          co = true;
         }
       }
+    }
+    //---------------------------previous()-------------------------
+    function previous() 
+    {
+      var co = false;
+      for (let i = songList.length - 1; i >= 0; i--) 
+      {
+        if (co == true) 
+        {
+          v1 = songList[i][0]; 
+          v2 = songList[i][1]; 
+          v3 = songList[i][2]; 
+          v4 = songList[i][3]; 
+          v5 = songList[i][4]; 
+          v6 = songList[i][5];
+          co = false;
+        }   
+        else if (v1 == songList[i][0]) 
+        {
+          co = true;
+        }
+      }
+
+      document.getElementById("myImage").src = "admin/" + v6;
+      document.getElementById("audioPlayer").src = "admin/" + v5;
+      document.getElementById("audioPlayer").load();
+      document.getElementById("audioPlayer").play();
+      document.getElementById("songTitle").innerHTML = `<strong>${v2}</strong>`;
+      document.getElementById("artistName").innerHTML = v3;
     }
 
 </script>

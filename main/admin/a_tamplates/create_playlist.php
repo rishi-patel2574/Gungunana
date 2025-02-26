@@ -54,10 +54,6 @@ include '../../partials/dbconnect.php';
             $folder = "songs/".$filename;
             move_uploaded_file($tempname, "../".$folder);
         }
-        else
-        {
-            $folder = $sub[5];
-        }
 
         $playlist_id= $_POST["playlist_id"];
         $name= $_POST["name"];

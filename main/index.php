@@ -28,7 +28,7 @@
   }
   else
   {
-    $id=12;
+    $id=28;
   }
 
   $sql = "SELECT * FROM s_details WHERE s_id=".$id;
@@ -40,6 +40,21 @@
   
   $sql1 = "SELECT DISTINCT playlist_id FROM playlist ORDER BY playlist_id";
   $result1= mysqli_query($conn, $sql1);
+  
+
+  /*-----------------Subscribed User Id details-------------*/
+  $sn=$_SESSION['id'];
+
+  $sql11 = "SELECT DISTINCT playlist_id FROM user_playlist WHERE sn=$sn ORDER BY playlist_id";
+  $result11= mysqli_query($conn, $sql11);
+
+
+  /*-------------------ADS----------------*/
+
+  
+  $sql13 = "SELECT * FROM adds ORDER BY sln";
+  $result13 = mysqli_query($conn, $sql13);
+
 ?>
 
 <!DOCTYPE html>
@@ -53,7 +68,7 @@
       <h1 align="center">Playlists</h1>
       <hr>
       <ul>
-        <li> <a href="index.php?like_id=1" class="p-link"> <img src="admin\images\rishi1.png" class="img-profile">Liked Songs</a></li>
+        <li> <a href="index.php?like_id=1" class="p-link"> <img src="img\rishi1.png" class="img-profile">Liked Songs</a></li>
         <hr>
         <?php
           while($r1 = mysqli_fetch_row($result1))
@@ -67,6 +82,25 @@
           <hr>
         <?php
           }
+
+
+          // --------------------------------------Subscribed user playlists--------------------------
+
+
+          if($_SESSION['sub'] == "YES") 
+          {
+            while($r11 = mysqli_fetch_row($result11))
+            {
+              $sql12 = "SELECT * FROM user_playlist WHERE playlist_id = ".$r11[0];
+              $result12= mysqli_query($conn, $sql12);
+              $r13 = mysqli_fetch_row($result12);
+
+        ?>
+            <li><a href="index.php?p_id=<?php echo $r13[1];?>&su=1" class="p-link"> <img src="admin/<?php echo $r13[4];?>" class="img-profile"> <?php echo $r13[5]; ?> </a> </li>
+            <hr>
+        <?php
+            }
+        }
         ?>
         
         <li align = "center" class="explore"> <h2><a href="index.php?p_id=0" class="p-link">Explore</a></h2></li>
@@ -92,7 +126,7 @@
         ?>
 
             <div class="like-btn">
-              <button type="submit" name="like" class="inner-like-btn" value="<?php echo $sub[0]; ?>"> <img src="admin\images\rishi1.png" class="img-profile"></button>
+              <button type="submit" name="like" class="inner-like-btn" value="<?php echo $sub[0]; ?>"> <img src="img\rishi1.png" class="img-profile"></button>
             </div>
         
         <?php 
@@ -101,7 +135,7 @@
           {
         ?>
             <div class="like-btn">
-              <button type="submit" name="unliked" class="inner-like-btn" value="<?php echo $sub[0]; ?>"> <img src="admin\images\rishi.png" class="img-profile"> </button>
+              <button type="submit" name="unliked" class="inner-like-btn" value="<?php echo $sub[0]; ?>"> <img src="img\rishi.png" class="img-profile"> </button>
             </div>
         <?php
           }

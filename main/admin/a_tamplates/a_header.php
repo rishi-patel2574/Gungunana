@@ -15,5 +15,6 @@
     <a href="a_index.php">Manage Users</a>
     <a href="manage_songs.php">Manage Songs</a>
     <a href="manage_playlists.php">Manage Playlist</a>
+    <a href="adds.php">Manage Adds</a>
     <a href="../login.php">Logout</a>
 </div>

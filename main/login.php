@@ -70,7 +70,7 @@
         }
         else
         {
-            echo "Invalid Username Or Password";
+            echo "<script> alert('Invalid Username Or Password'); </script>";
         }
     }
 ?>

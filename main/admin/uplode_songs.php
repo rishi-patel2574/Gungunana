@@ -45,8 +45,7 @@
                 <input type="file" id="photo" name="photo" required>
             </div>
 
-            <button type="submit" class="signup-btn">Sign Up</button>
-            <p class="login-link">Already have an account? <a href="signup.php">Login</a></p>
+            <button type="submit" class="signup-btn">Uplode Song</button>
         </form>
     </div>
 </body>

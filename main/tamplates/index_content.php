@@ -13,15 +13,19 @@
 <div class="add container mt-4">
     <div id="adCarousel" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner">
+            <?php
+                while($r14 = mysqli_fetch_row($result13))
+                {
+                    if($r14[8] == "Active")
+                    {
+            ?>
             <div class="carousel-item active">
-                <img src="admin/images/p1.jpg" class="d-block w-100 ad-img" alt="Ad 1">
+                <img src="admin/<?php echo $r14[6];?>" class="d-block w-100 ad-img" alt="Ad 1">
             </div>
-            <div class="carousel-item">
-                <img src="admin/images/p2.jpg" class="d-block w-100 ad-img" alt="Ad 2">
-            </div>
-            <div class="carousel-item">
-                <img src="admin/images/p3.jpg" class="d-block w-100 ad-img" alt="Ad 3">
-            </div>
+            <?php
+                }
+            }
+            ?>
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#adCarousel" data-bs-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -139,9 +143,12 @@
     }
     else
     {
-        $sql5 = "SELECT * FROM playlist WHERE playlist_id = $p_id ORDER BY playlist_id";
-        $result5= mysqli_query($conn, $sql5);
-        $play = mysqli_fetch_row($result5);
+        if(!isset($_GET['su']))
+        {
+            $sql5 = "SELECT * FROM playlist WHERE playlist_id = $p_id ORDER BY playlist_id";
+            $result5= mysqli_query($conn, $sql5);
+            $re5= mysqli_query($conn, $sql5);
+            $play = mysqli_fetch_row($re5);
 ?>
 
 <h1 class="hwd-h1"> <?php echo $play[3]; ?></h1>
@@ -177,5 +184,48 @@
     </div>
 </div>
 <?php
+        }
+        else
+        {
+            $sql5 = "SELECT * FROM user_playlist WHERE playlist_id = $p_id ORDER BY playlist_id";
+            $result5= mysqli_query($conn, $sql5);
+            $re5= mysqli_query($conn, $sql5);
+            $play = mysqli_fetch_row($re5);
+?>
+
+<h1 class="hwd-h1"> <?php echo $play[5]; ?></h1>
+
+<div class="text-center carousel-inner py-4">
+    <!-- Single item -->
+    <div class="carousel-item active">
+        <div class="container">
+            <div class="row">
+
+                <?php 
+                    while($r5 = mysqli_fetch_row($result5))
+                    {
+                        $sql6="SELECT * FROM s_details WHERE s_id=$r5[3]";
+                        $result6=mysqli_query($conn, $sql6);
+                        $r6 = mysqli_fetch_row($result6);
+                ?>
+                <div class="col-lg-4 d-none d-lg-block">
+                    <div class="ind-card">
+                        <img src="admin/<?php echo $r6[5]; ?>" class="ind-card-img">
+                        <div class="card-body">
+                            <h5 class=""> <?php echo $r6[1]; ?> </h5>
+                            <a href="index.php?s_id=<?php echo $r6[0]; ?>" class="btn btn-light">Play Now</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <?php
+                    }
+                ?>
+            </div>
+        </div>
+    </div>
+</div>
+<?php   
+        }
     }
 ?>
